@@ -1,23 +1,36 @@
+const Express = require("express") // importing express class
 const path = require('path');
-const express = require('express');
-const colors = require('colors');
-const dotenv = require('dotenv').config();
-const { errorHandler } = require('./middleware/errorMiddleware');
-const connectDB = require('./config/db');
-const port = process.env.PORT || 5000;
 
-connectDB();
+const dotenv = require("dotenv").config()
+const colors = require("colors")
 
-const app = express();
+const connectDB = require("./config/db")
+const port = process.env.PORT || 5000
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+connectDB()
 
+const { errorHandler1 } = require("./middleware/errorMiddleware")
+
+const app = new Express()// init express object
+
+//middleware for body parser
+app.use(Express.json())
+app.use(Express.urlencoded({ extended: false }))
+
+
+//API Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
-app.use('/api/appointments', require('./routes/appointmentScheduleRoutes'));
+app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
 
+
+//overwrite the default express errorhandler
+
+app.use(errorHandler1)
+app.listen(port, () => console.log(`Server running on port ${port}`))
+
+//-----------------------------------
 
 // // Serve frontend
 // if (process.env.NODE_ENV === 'production') {
@@ -31,7 +44,3 @@ app.use('/api/appointments', require('./routes/appointmentScheduleRoutes'));
 // } else {
 //     app.get('/', (req, res) => res.send('Please set to production'));
 // }
-
-app.use(errorHandler);
-
-app.listen(port, () => console.log(`Server started on port ${port}`));

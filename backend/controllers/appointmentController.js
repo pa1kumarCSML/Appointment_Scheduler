@@ -1,30 +1,65 @@
-//GET Appointments
-// @route GET/api/appointment
+//Requests
+// @route GET/api/appointments
 // access Private
-const getAppointments = (req,res) => {
-    res.status(200).json({ message: 'Get Appointments' })
-}
+const asyncHandler = require("express-async-handler")
+const Appointment = require("../models/appointmentModel")
 
-//CREATE Appointment
-// @route POST/api/appointment
-// access Private
-const setAppointment = (req,res) => {
-    res.status(200).json({ message: 'Created Appointment' })
-}
+// @desc Get Requests
+// @route GET /api/requests
+// @access Private
 
-//UPDATE Appointment
-// @route PUT/api/appointment/:id
-// access Private
-const updateAppointment = (req,res) => {
-    res.status(200).json({ message: `Updated Appointment ${req.params.id}` })
-}
+const getAppointments = asyncHandler(async (req, res) => {
+    //check necessary validations and pre computings based on date
+    const appointments = await Appointment.find()
+    res.status(200).json(appointments)
+})
 
-//DELETE Appointment
-// @route DELETE/api/appointment/:id
-// access Private
-const deleteAppointment = (req,res) => {
-    res.status(200).json({ message: `Deleted Appointment ${req.params.id}` })
-}
+// @desc Set Goal
+// @route POST /api/requests
+// @access Private
+
+const setAppointment = asyncHandler(async (req, res) => {
+
+    if (!req.body) {
+        res.status(400)
+        //using express error handler
+        throw new Error("Please provide valid details")
+    }
+    //check necessary validations
+
+    const appointment = await Appointment.create(req.body)
+    res.status(200).json(appointment)
+})
+
+// @desc Update Requests
+// @route PUT /api/requests/:id
+// @access Private
+
+const updateAppointment = asyncHandler(async (req, res) => {
+    const appointment = await Appointment.findById(req.params.id)
+    if (!appointment) {
+        res.status(400)
+        throw new Error("Appointment not found")
+    }
+    const updateAppointment = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    })
+    res.status(200).json(updateAppointment)
+})
+
+// @desc Delete Request
+// @route DELETE /api/requests/:id
+// @access Private
+
+const deleteAppointment = asyncHandler(async (req, res) => {
+    const request = await Appointment.findById(req.params.id)
+    if (!request) {
+        res.status(400)
+        throw new Error("Appointment not found")
+    }
+    await Goal.findByIdAndDelete(req.params.id)
+    res.status(200).json({ id: req.params.id })
+})
 
 module.exports = {
     getAppointments,

@@ -1,15 +1,14 @@
 const Express = require("express") // importing express class
 const path = require('path');
-
 const dotenv = require("dotenv").config()
 const colors = require("colors")
-
 const connectDB = require("./config/db")
+
 const port = process.env.PORT || 5000
 
 connectDB()
 
-const { errorHandler1 } = require("./middleware/errorMiddleware")
+const { errorHandler } = require("./middleware/errorMiddleware")
 
 const app = new Express()// init express object
 
@@ -24,10 +23,10 @@ app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
 
-
 //overwrite the default express errorhandler
+app.use(errorHandler)
 
-app.use(errorHandler1)
+
 app.listen(port, () => console.log(`Server running on port ${port}`))
 
 //-----------------------------------

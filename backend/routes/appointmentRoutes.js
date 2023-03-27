@@ -1,5 +1,8 @@
 const express = require('express')
 const router = express.Router()
+
+//Importing Controller methods
+
 const {
     getAppointments,
     setAppointment,
@@ -8,6 +11,8 @@ const {
 } = require('../controllers/appointmentController')
 
 //const { protect } = require('../middleware/authMiddleware')
+
+
 
 router.route('/').get(getAppointments).post(setAppointment)
 router.route('/:id').delete(deleteAppointment).put(updateAppointment)

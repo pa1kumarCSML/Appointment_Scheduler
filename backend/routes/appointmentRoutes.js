@@ -7,9 +7,9 @@ const {
     deleteAppointment,
 } = require('../controllers/appointmentController')
 
-const { protect } = require('../middleware/authMiddleware')
+//const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(protect, getAppointments).post(protect, setAppointment)
-router.route('/:id').delete(protect, deleteAppointment).put(protect, updateAppointment)
+router.route('/').get(getAppointments).post(setAppointment)
+router.route('/:id').delete(deleteAppointment).put(updateAppointment)
 
 module.exports = router

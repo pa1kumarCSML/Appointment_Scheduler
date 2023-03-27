@@ -5,9 +5,9 @@ const {
     updateRequest, deleteRequest
 } = require('../controllers/requestController')
 
-const { protect } = require('../middleware/authMiddleware')
+//const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(protect, getRequests).post(protect, setRequest)
-router.route('/:id').delete(protect, deleteRequest).put(protect, updateRequest)
+router.route('/').get(getRequests).post(setRequest)
+router.route('/:id').delete(deleteRequest).put(updateRequest)
 
 module.exports = router

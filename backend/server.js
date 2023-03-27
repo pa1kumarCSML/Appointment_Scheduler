@@ -13,8 +13,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/goals', require('./routes/goalRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/requests', require('./routes/requestRoutes'));
+app.use('/api/appointments', require('./routes/appointmentScheduleRoutes'));
+
+
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

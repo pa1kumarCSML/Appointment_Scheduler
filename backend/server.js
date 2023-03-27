@@ -1,37 +1,46 @@
+const Express = require("express") // importing express class
 const path = require('path');
-const express = require('express');
-const colors = require('colors');
-const dotenv = require('dotenv').config();
-const { errorHandler } = require('./middleware/errorMiddleware');
-const connectDB = require('./config/db');
-const port = process.env.PORT || 5000;
+const dotenv = require("dotenv").config()
+const colors = require("colors")
+const connectDB = require("./config/db")
 
-connectDB();
+const port = process.env.PORT || 5000
 
-const app = express();
+//connecting with DB
+connectDB()
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const { errorHandler } = require("./middleware/errorMiddleware")
 
+const app = new Express()// init express object
+
+//middleware for body parser
+app.use(Express.json())
+app.use(Express.urlencoded({ extended: false }))
+
+
+//API Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
-app.use('/api/appointments', require('./routes/appointmentScheduleRoutes'));
+app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
 
+//overwrite the default express errorhandler
+app.use(errorHandler)
 
-// Serve frontend
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-    app.get('*', (req, res) =>
-        res.sendFile(
-            path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
-        )
-    );
-} else {
-    app.get('/', (req, res) => res.send('Please set to production'));
-}
+app.listen(port, () => console.log(`Server running on port ${port}`))
 
-app.use(errorHandler);
+//-----------------------------------
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+// // Serve frontend
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+//     app.get('*', (req, res) =>
+//         res.sendFile(
+//             path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+//         )
+//     );
+// } else {
+//     app.get('/', (req, res) => res.send('Please set to production'));
+// }

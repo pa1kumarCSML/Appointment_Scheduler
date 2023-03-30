@@ -7,9 +7,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RequestComponent } from './request/request.component';
 import { HeaderComponent } from './header/header.component';
-import { CreateScheduleComponent } from './appointment/create-schedule/create-schedule.component';
-import { ScheduleListComponent } from './appointment/schedule-list/schedule-list.component';
-import { RequestListComponent } from './appointment/request-list/request-list.component';
+import { CreateScheduleComponent } from './create-schedule/create-schedule.component';
+import { ScheduleListComponent } from './schedule-list/schedule-list.component';
+import { RequestListComponent } from './request-list/request-list.component';
+import { CalenderComponent } from './appointment/calender/calender.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { RequestListComponent } from './appointment/request-list/request-list.co
     HeaderComponent,
     CreateScheduleComponent,
     ScheduleListComponent,
-    RequestListComponent
+    RequestListComponent,
+    CalenderComponent
   ],
   imports: [
     BrowserModule,

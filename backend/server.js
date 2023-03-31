@@ -3,6 +3,7 @@ const path = require('path');
 const dotenv = require("dotenv").config()
 const colors = require("colors")
 const connectDB = require("./config/db")
+const cors = require("cors")
 
 const port = process.env.PORT || 5000
 
@@ -13,6 +14,7 @@ const { errorHandler } = require("./middleware/errorMiddleware")
 
 const app = new Express()// init express object
 
+app.use(cors())
 //middleware for body parser
 app.use(Express.json())
 app.use(Express.urlencoded({ extended: false }))

@@ -19,7 +19,9 @@ const getAppointments = asyncHandler(async (req, res) => {
 // @access Private
 
 const setAppointment = asyncHandler(async (req, res) => {
-
+    const appDetails = req.body;
+    console.log(appDetails);
+    
     if (!req.body) {
         res.status(400)
         //using express error handler
@@ -27,8 +29,17 @@ const setAppointment = asyncHandler(async (req, res) => {
     }
     //check necessary validations
 
-    const appointment = await Appointment.create(req.body)
-    res.status(200).json(appointment)
+    const appointment = await Appointment.create(appDetails);
+    console.log(appointment);
+    if(appointment){
+        res.status(200).json({
+            Id: appointment._id,
+            //UserId: appointment.userId,
+            DateTime: appointment.DateTime,
+            EndTime: new Date(appointment.DateTime.getTime() + (appointment.Duration*60*1000)),
+            Status: appointment.Status,
+        })
+    }
 })
 
 // @desc Update Requests

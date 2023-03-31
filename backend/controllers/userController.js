@@ -21,9 +21,11 @@ const getUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
     
     //check validation before creating new user-->valid details,unique user etc
-    const userData = req.body
-    console.log(req.body)
-    if (!userData.Name || !userData.Email || !userData.Password) {
+    const userData = req.body&&req.body.User ? req.body.User : null;
+    //res.header("Access-Control-Allow-Origin","*")
+    //res.header("Access-Control-Allow-Methods:GET, POST, PATCH , PUT,DELETE")
+    console.log(userData)
+    if (!userData&&(!userData.Name || !userData.Email || !userData.Password)) {
         res.status(400)
         //using express error handler
         throw new Error("Please add required fields")

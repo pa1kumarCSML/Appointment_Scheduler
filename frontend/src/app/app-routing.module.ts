@@ -4,10 +4,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'schedule', loadChildren: () => import('./components/schedule/schedule.module').then(m => m.ScheduleModule) }
+  { path: 'schedule', loadChildren: () => import('./components/schedule/schedule.module').then(m => m.ScheduleModule) },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

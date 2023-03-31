@@ -1,34 +1,24 @@
 const mongoose = require('mongoose')
 
 const appointmentSchema = mongoose.Schema({
-    Date: {
-        type: Date,
+    userId: {
+        type: String,
+     },
+    Description: {
+        type: String,
+        required: [true, 'Please mention the details of the meeting'],
+    },
+    DateTime: {
+        type: Date, //store as yyyy-mm-dd
         required: [true, 'Please mention the date to book'],
     },
-    Time: {
-        type: Date,
-        required: [true, 'Please mention the time to book'],
+    Duration: {
+        type: Number, //maintain as minutes
+        required: true,
     },
-    Name: {
-        type: String,
-        required: [true, 'Please add your Name'],
-    },
-    Email: {
-        type: String,
-        unique: true,
-        required: [true, 'Please add your Email'],
-    },
-    RollNo: {
-        type: String,
-        unique: true,
-    },
-    Role: {
+    NoOfParticipants: {
         type: Number,
-        enum: [1, 2, 3, 4],
-    },
-    Status: {
-        type: String,
-        //enum: ['Aproved', 'pending'],
+        default: 1,
     },
 },
     {

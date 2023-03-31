@@ -1,12 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const {
-    setUser,
-    getUser
+    registerUser,
+    getUser,
+    loginUser,
 } = require('../controllers/userController')
+
+const { protect } = require('../middleware/authMiddleware')
 
 //const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(getUser).post(setUser)
+router.post('/', registerUser)
+router.post('/login', loginUser)
+router.get('/me',protect, getUser) //authorizing it with a token
 
 module.exports = router

@@ -1,6 +1,4 @@
-//Requests
-// @route GET/api/appointments
-// access Private
+const moment = require('moment');
 const asyncHandler = require("express-async-handler")
 const Appointment = require("../models/appointmentModel")
 
@@ -10,7 +8,9 @@ const Appointment = require("../models/appointmentModel")
 
 const getAppointments = asyncHandler(async (req, res) => {
     //check necessary validations and pre computings based on date
-    const appointments = await Appointment.find()
+    //console.log(req.user);
+    const appointments = await Appointment.find({userId: req.user._id})
+    //console.log(appointments);
     res.status(200).json(appointments)
 })
 
@@ -19,16 +19,30 @@ const getAppointments = asyncHandler(async (req, res) => {
 // @access Private
 
 const setAppointment = asyncHandler(async (req, res) => {
-
+    const appDate = moment(req.body.DateTime);
+    const appDetails = req.body;
+   
     if (!req.body) {
         res.status(400)
         //using express error handler
         throw new Error("Please provide valid details")
     }
     //check necessary validations
-
-    const appointment = await Appointment.create(req.body)
-    res.status(200).json(appointment)
+    appDetails["userId"]=req.user._id;
+    //console.log(appDetails);
+    const appointment = await Appointment.create(appDetails);
+    
+    if(appointment){
+        res.status(200).json({
+            Id: appointment._id,
+            UserId: appointment.userId,
+            Description: appointment.Description,
+            Noofparticipants: appointment.NoOfParticipants,
+            DateTime: appointment.DateTime,
+            EndTime: appDate.add(appointment.Duration,'minutes'),
+            Status: appointment.Status,
+        })
+    }
 })
 
 // @desc Update Requests
@@ -37,11 +51,12 @@ const setAppointment = asyncHandler(async (req, res) => {
 
 const updateAppointment = asyncHandler(async (req, res) => {
     const appointment = await Appointment.findById(req.params.id)
+    
     if (!appointment) {
         res.status(400)
         throw new Error("Appointment not found")
     }
-    const updateAppointment = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+    const updateAppointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
     res.status(200).json(updateAppointment)
@@ -57,7 +72,7 @@ const deleteAppointment = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("Appointment not found")
     }
-    await Goal.findByIdAndDelete(req.params.id)
+    await Appointment.findByIdAndDelete(req.params.id)
     res.status(200).json({ id: req.params.id })
 })
 

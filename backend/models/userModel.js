@@ -20,12 +20,11 @@ const userSchema = mongoose.Schema({
         unique: true,
     },
     Role: {
-        type: Number,
-        //enum: [1, 2, 3, 4],
+        type: Number, //1:Students, 2: Faculty, 3: Director, 4:Others
     },
     Status: {
         type: String,
-        enum: ['Active', 'In_Active'],
+        default: 'Active'
     },
 },
     {

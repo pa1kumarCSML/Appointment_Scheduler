@@ -1,6 +1,3 @@
-//Requests
-// @route GET/api/requests
-// access Private
 const asyncHandler = require("express-async-handler")
 const Request = require("../models/requestModel")
 
@@ -10,7 +7,7 @@ const Request = require("../models/requestModel")
 
 const getRequests = asyncHandler(async (req, res) => {
     //check necessary validations and pre computings
-    const requests = await Request.find()
+    const requests = await Request.find({userId: req.user._id})
     res.status(200).json(requests)
 })
 
@@ -19,16 +16,24 @@ const getRequests = asyncHandler(async (req, res) => {
 // @access Private
 
 const setRequest = asyncHandler(async (req, res) => {
-
+    const reqData = req.body;
     if (!req.body) {
         res.status(400)
         //using express error handler
         throw new Error("Please add a text field")
     }
     //check necessary validations
-
-    const request = await Request.create(req.body)
-    res.status(200).json(request)
+    reqData["userId"]=req.user._id;
+    const request = await Request.create(reqData);
+    
+    res.status(200).json({
+        Id: request._id,
+        UserId: request.userId,
+        Description: request.Description,
+        Noofparticipants: request.NoOfParticipants,
+        Slot: request.PreferredSlot,
+        Status: request.Status,
+    })
 })
 
 // @desc Update Requests
@@ -37,11 +42,12 @@ const setRequest = asyncHandler(async (req, res) => {
 
 const updateRequest = asyncHandler(async (req, res) => {
     const request = await Request.findById(req.params.id)
+    
     if (!request) {
         res.status(400)
-        throw new Error("Goal not found")
+        throw new Error("Requests not found")
     }
-    const updateRequest = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+    const updateRequest = await Request.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
     res.status(200).json(updateRequest)
@@ -55,9 +61,9 @@ const deleteRequest = asyncHandler(async (req, res) => {
     const request = await Request.findById(req.params.id)
     if (!request) {
         res.status(400)
-        throw new Error("Goal not found")
+        throw new Error("Request not found")
     }
-    await Goal.findByIdAndDelete(req.params.id)
+    await Request.findByIdAndDelete(req.params.id)
     res.status(200).json({ id: req.params.id })
 })
 

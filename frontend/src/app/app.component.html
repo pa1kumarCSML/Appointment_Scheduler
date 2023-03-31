@@ -1,2 +1,16 @@
-<app-header></app-header>
+<nav class="navbar border-bottom bg-light">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand text-info" routerLink="/"><b>{{title}}</b></a>
+    </div>
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a routerLink="login" class="nav-link" routerLinkActive="active">Log
+          In</a></li>
+      <li class="nav-item"><a routerLink="register" class="nav-link" routerLinkActive="active">Register</a>
+      </li>
+      <li class="nav-item"><button type="button" class="btn btn-outline-secondary">Log out</button>
+      </li>
+    </ul>
+  </div>
+</nav>
 <router-outlet></router-outlet>

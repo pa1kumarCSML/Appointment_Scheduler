@@ -48,10 +48,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(201).json({  //201 is also okay
-            Id: user._id,
             Name: user.Name,
             Email: user.Email,
-            token: generateToken(user._id)
         })
     }
     else {
@@ -73,10 +71,10 @@ const loginUser = asyncHandler(async (req, res) => {
     //console.log(userExists)
     if (userExists && (await bcrypt.compare(userDetails.Password, userExists.Password))) {
         res.json({
-            _id: userExists.id,
+            Id: userExists._id,
             Name: userExists.Name,
-            Email: userExists.Email,
             Status: userExists.Status,
+            IsAdmin: userExists.Role === 3,
             token: generateToken(userExists._id)
         })
     }

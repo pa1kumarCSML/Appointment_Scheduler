@@ -1,30 +1,31 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import {Router} from '@angular/router'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
-  NewUser={
-    Name:'',
-    Email:'',
-    Password:'',
-    RollNo:'',
+  NewUser = {
+    Name: '',
+    Email: '',
+    Password: '',
+    RollNo: '',
     Role: 1,
-    Status:'Active'
+    Status: 1//1-active,0-inactive
   }
-  constructor(public userService:UserService,private router:Router) { }
+
+  constructor(public userService: UserService, private router: Router) { }
+
   ngOnInit(): void {
   }
-    
+
   Adduser() {
-    console.log("i");
     this.userService.NewUser(this.NewUser);
-    console.log("Hii");
-    this.router.navigate(["login"]);
+    //this.router.navigate(["login"]);
   }
+
 }

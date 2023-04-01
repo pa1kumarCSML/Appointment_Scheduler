@@ -22,9 +22,9 @@ export class RegisterComponent {
   }
     
   Adduser() {
-    console.log("i");
+    //console.log("i");
     this.userService.NewUser(this.NewUser);
-    console.log("Hii");
+    //console.log("Hii");
     this.router.navigate(["login"]);
   }
 }

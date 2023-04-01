@@ -12,15 +12,11 @@ export class UserService {
 
 
   newUser(Userdetails: any) {
-    return this.http.post("http://localhost:5000/api/users", Userdetails)
-      .subscribe(data => {
-        console.log(data)
-      }
-      )
+    return this.http.post<any>("http://localhost:5000/api/users", Userdetails)
   }
 
   loginUser(user: any) {
-    return this.http.post<any>("http://localhost:5000/api/users/login", user);
+    return this.http.post<any>("http://localhost:5000/api/users/login", user)
   }
 
 }

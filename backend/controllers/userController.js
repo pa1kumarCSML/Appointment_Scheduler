@@ -48,6 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(201).json({  //201 is also okay
+            Id: user._id,
             message: "User registered successfully."
         })
     }

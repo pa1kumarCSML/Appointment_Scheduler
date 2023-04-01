@@ -14,11 +14,7 @@ export class UserService {
   newUser(Userdetails: any) {
     return this.http.post("http://localhost:5000/api/users", Userdetails)
       .subscribe(data => {
-        const user: any = data
-        if (user && user["token"]) {
-          localStorage.setItem('user', user);
-          this.router.navigate(["schedule"])
-        }
+        console.log(data)
       }
       )
   }
@@ -31,6 +27,12 @@ export class UserService {
   //     })
   //   );
   // }
+
+  // const user: any = data
+  //       if (user && user["token"]) {
+  //         localStorage.setItem('user', user);
+  //         this.router.navigate(["schedule"])
+  //       }
 
   logout(): void {
     localStorage.removeItem('user');

@@ -48,8 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(201).json({  //201 is also okay
-            Name: user.Name,
-            Email: user.Email,
+            message: "User registered successfully."
         })
     }
     else {

@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { JwtHelperService } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +18,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     FormsModule,
     HttpClientModule
   ],
-  providers: [JwtHelperService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

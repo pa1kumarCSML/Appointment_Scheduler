@@ -16,7 +16,7 @@ export class LoginComponent {
 
   constructor(private _login: UserService, private _router: Router) {
   }
-  loginUser() {
+  userLogin() {
     this._login.loginUser(this.User)
       .subscribe((res) => {
         const user: any = JSON.stringify(res)

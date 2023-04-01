@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   Adduser() {
-    this.userService.NewUser(this.NewUser);
+    this.userService.newUser(this.NewUser);
     //this.router.navigate(["login"]);
   }
 

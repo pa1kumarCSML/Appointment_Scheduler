@@ -3,7 +3,7 @@
         <h3>Log In</h3>
     </div>
     <div class="container">
-        <form autocomplete="off">
+        <form autocomplete="off" (ngSubmit)="userLogin()">
             <div class="form-control">
                 <div class="form-label">
                     Email ID
@@ -17,7 +17,7 @@
                 <input type="password" autocomplete="off" placeholder="enter password" name="Password">
             </div>
             <div class="pt-4">
-                <button type="button" class="btn btn-outline-secondary">Submit</button>
+                <button type="submit" class="btn btn-outline-secondary">Submit</button>
             </div>
         </form>
     </div>

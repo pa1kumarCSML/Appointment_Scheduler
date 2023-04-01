@@ -19,33 +19,8 @@ export class UserService {
       )
   }
 
-  // login(username: string, password: string): Observable<any> {
-  //   const body = { username, password };
-  //   return this.http.post(`${this.apiUrl}/login`, body).pipe(
-  //     tap((response) => {
-
-  //     })
-  //   );
-  // }
-
-  // const user: any = data
-  //       if (user && user["token"]) {
-  //         localStorage.setItem('user', user);
-  //         this.router.navigate(["schedule"])
-  //       }
-
-  logout(): void {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }
-
-  getCurrentUser(): any {
-    const user: any = localStorage.getItem('user');
-    if (!user || !user["token"]) {
-      return null;
-    }
-    const token = user["token"]
-    return user
+  loginUser(user: any) {
+    return this.http.post<any>("http://localhost:5000/api/users/login", user);
   }
 
 }

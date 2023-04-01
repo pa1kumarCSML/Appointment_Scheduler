@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,13 +8,24 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  User = {
+    Email: '',
+    Password: ''
+  };
+  error_msg: any;
 
-
-  constructor(public userService: UserService, private router: Router) { }
-
-
-  userLogin() {
-
+  constructor(private _login: UserService, private _router: Router) {
+  }
+  loginUser() {
+    this._login.loginUser(this.User)
+      .subscribe((res) => {
+        const user: any = JSON.stringify(res)
+        if (user && JSON.parse(user).token) {
+          localStorage.setItem("user", user);
+          this._router.navigate(['schedule']);
+        }
+      }
+      )
 
   }
 

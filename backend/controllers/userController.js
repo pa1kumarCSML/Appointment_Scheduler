@@ -12,47 +12,44 @@ const getUser = asyncHandler(async (req, res) => {
     const user1 = await User.findById(req.user._id)
 
     res.status(200).json(user1)
-}) 
+})
 
 // @desc Register User
 // @route POST /api/users
 // @access Public
 
 const registerUser = asyncHandler(async (req, res) => {
-    
+
     //check validation before creating new user-->valid details,unique user etc
-    const userData = req.body&&req.body.User ? req.body.User : null;
+    const userData = req.body ? req.body : null;
     //res.header("Access-Control-Allow-Origin","*")
     //res.header("Access-Control-Allow-Methods:GET, POST, PATCH , PUT,DELETE")
-    console.log(userData)
-    if (!userData&&(!userData.Name || !userData.Email || !userData.Password)) {
+    if (!userData || (!userData.Name || !userData.Email || !userData.Password)) {
         res.status(400)
         //using express error handler
         throw new Error("Please add required fields")
-    }  
+    }
 
     //check if user already exists
     const Email = userData.Email
-    const userExists = await User.findOne({Email})
-    if(userExists){
+    const userExists = await User.findOne({ Email })
+    if (userExists) {
         res.status(400)
         throw new Error("User already exists")
     }
 
     //Hash Password
     const salt = await bcrypt.genSalt(10) //#rounds by default is 10
-    const hashedPassword = await bcrypt.hash(userData.Password,salt)
+    const hashedPassword = await bcrypt.hash(userData.Password, salt)
 
     //Create User
     userData.Password = hashedPassword
     const user = await User.create(userData)
 
-    if(user) {
+    if (user) {
         res.status(201).json({  //201 is also okay
-            Id: user._id,
             Name: user.Name,
             Email: user.Email,
-            token: generateToken(user._id)
         })
     }
     else {
@@ -67,23 +64,21 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const userDetails = req.body
     //console.log(req.body)
-    
+
     //Check for User Email
     const Email = userDetails.Email
-    const userExists = await User.findOne({Email})
+    const userExists = await User.findOne({ Email })
     //console.log(userExists)
-    if(userExists && (await bcrypt.compare(userDetails.Password,userExists.Password)))
-    {
+    if (userExists && (await bcrypt.compare(userDetails.Password, userExists.Password))) {
         res.json({
-            _id: userExists.id,
+            Id: userExists._id,
             Name: userExists.Name,
-            Email: userExists.Email,
             Status: userExists.Status,
+            IsAdmin: userExists.Role === 3,
             token: generateToken(userExists._id)
         })
     }
-    else
-    {
+    else {
         res.status(400)
         throw new Error('Invalid Credentials')
     }
@@ -92,7 +87,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //Generate Token : JWT
 //Sign in a new token with the id that is passed in with the secret used
 const generateToken = (_id) => {
-    return jwt.sign({_id}, process.env.JWT_SECRET, {
+    return jwt.sign({ _id }, process.env.JWT_SECRET, {
         expiresIn: '90d'
     })
 }

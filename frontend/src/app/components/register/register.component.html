@@ -3,14 +3,14 @@
         <h3>Register</h3>
     </div>
     <div class="container">
-        <form autocomplete="off" (ngSubmit)="Adduser()"  #newUser="ngForm"  method="POST" enctype="multipart/form-data">
+        <form autocomplete="off" (ngSubmit)="Adduser()">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-control">
                         <div class="form-label">
                             User Type
                         </div>
-                        <select [(ngModel)]="NewUser.Role" class="form-select" name="Role" >
+                        <select [(ngModel)]="NewUser.Role" class="form-select" name="Role">
                             <option selected value="1">Student</option>
                             <option value="2">Faculty</option>
                             <option value="3">Others</option>
@@ -22,7 +22,8 @@
                         <div class="form-label">
                             Name
                         </div>
-                        <input type="text" [(ngModel)]="NewUser.Name" autocomplete="off" placeholder="enter your name" name="Name" value="Name">
+                        <input type="text" [(ngModel)]="NewUser.Name" autocomplete="off" placeholder="enter your name"
+                            name="Name">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -30,8 +31,8 @@
                         <div class="form-label">
                             Email ID
                         </div>
-                        <input type="text" [(ngModel)]="NewUser.Email" autocomplete="off" placeholder="enter your email id" name="Email"
-                            value="Email">
+                        <input type="text" [(ngModel)]="NewUser.Email" autocomplete="off"
+                            placeholder="enter your email id" name="Email">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -39,8 +40,8 @@
                         <div class="form-label">
                             Roll Number
                         </div>
-                        <input type="text" [(ngModel)]="NewUser.RollNo" autocomplete="off" placeholder="enter your roll no" name="RollNo"
-                            value="RollNo">
+                        <input type="text" [(ngModel)]="NewUser.RollNo" autocomplete="off"
+                            placeholder="enter your roll no" name="RollNo">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -49,8 +50,8 @@
                             title="minimum length should be 8 chars">
                             Password
                         </div>
-                        <input type="password" [(ngModel)]="NewUser.Password" autocomplete="off" placeholder="enter password" name="Password"
-                            value="Password">
+                        <input type="password" [(ngModel)]="NewUser.Password" autocomplete="off"
+                            placeholder="enter password" name="Password">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -58,7 +59,7 @@
                         <div class="form-label">
                             Re-enter Password
                         </div>
-                        <input type="text" autocomplete="off" placeholder="re-enter password" value="Password">
+                        <input type="text" autocomplete="off" placeholder="re-enter password">
                     </div>
                 </div>
             </div>

@@ -16,6 +16,7 @@ export class LoginComponent {
 
   constructor(private _login: UserService, private _router: Router) {
   }
+
   userLogin() {
     this._login.loginUser(this.User)
       .subscribe((res) => {
@@ -26,7 +27,10 @@ export class LoginComponent {
         }
       }
       )
+  }
 
+  logOut() {
+    localStorage.removeItem('user')
   }
 
 

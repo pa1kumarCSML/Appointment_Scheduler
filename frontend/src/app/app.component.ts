@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Appointment Scheduler';
   constructor(private router: Router) { }
+
   logOut() {
     localStorage.removeItem('user')
     this.router.navigate(['login']);

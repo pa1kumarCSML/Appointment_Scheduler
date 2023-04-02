@@ -7,7 +7,7 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
-  { path: 'schedule', loadChildren: () => import('./components/schedule/schedule.module').then(m => m.ScheduleModule) },
+  { path: 'schedule', loadChildren: () => import('./components/schedule/schedule.module').then(m => m.ScheduleModule), canLoad: [AuthGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', redirectTo: 'login' }
 ];
@@ -16,4 +16,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}

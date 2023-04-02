@@ -18,15 +18,11 @@ export class AppComponent {
   }
 
   onActivate(componentRef: any) {
-    if (componentRef.onRouteChange) {
-      const user: any = localStorage.getItem("user")
-      if (user && JSON.parse(user).token) {
-        this.isLoggedIn = true
-      } else {
-        this.isLoggedIn = false
-      }
+    const user: any = localStorage.getItem("user")
+    if (user && JSON.parse(user).token) {
+      this.isLoggedIn = true
+    } else {
+      this.isLoggedIn = false
     }
   }
-
-
 }

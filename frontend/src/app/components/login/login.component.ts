@@ -31,6 +31,8 @@ export class LoginComponent {
 
   logOut() {
     localStorage.removeItem('user')
+    this._router.navigate(['login']);
+
   }
 
 

@@ -8,7 +8,7 @@ const Appointment = require("../models/appointmentModel")
 
 const getAppointments = asyncHandler(async (req, res) => {
     //check necessary validations and pre computings based on date
-    //console.log(req.user);
+    console.log(req.user);
     const appointments = await Appointment.find({userId: req.user._id})
     //console.log(appointments);
     res.status(200).json(appointments)

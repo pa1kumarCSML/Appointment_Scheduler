@@ -13,7 +13,7 @@ export class BookSlotComponent {
     Duration:15,
     NoOfParticipants:1,
     DateTime:'',
-    userId: localStorage.getItem("username")
+    userId: localStorage.getItem("userId")
   }
   constructor(public appointmentService:AppointmentService,private router:Router) { }
   ngOnInit(): void {

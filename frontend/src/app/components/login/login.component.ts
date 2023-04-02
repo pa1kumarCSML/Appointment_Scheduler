@@ -19,14 +19,16 @@ export class LoginComponent {
     this._login.loginUser(this.User)
     .subscribe(
       res=>{
+        if(res){
         localStorage.setItem('token',res.token)
         localStorage.setItem("Email", this.User.Email.toString());
         localStorage.setItem('is_user','true');
+        localStorage.setItem("userId", res._id.toString());
         this._router.navigate(['/schedule']);
-      }
-      ,err=>{
-        this.error_msg=true
-        setTimeout(()=>{this.error_msg=false},4000)
+        } else {
+          this.error_msg=true
+          setTimeout(()=>{this.error_msg=false},4000)
+        }
       }
     )
 

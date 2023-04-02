@@ -9,22 +9,25 @@ import { Router } from '@angular/router';
 })
 export class MyAppointmentsComponent {
 
-  Appointment=[{
-    Description: String,
-    Duration: Number,
-    NoOfParticipants:Number,
+  Appointments: any = [{
     DateTime: Date,
-    userId: String
+    Duration: Number,
+    NoOfParticipants: Number,
+    Description: String,
+    Status: Number
   }]
 
-  constructor(private appointmentservice :AppointmentService ,private router:Router) { }
+  currentUser: any = null;
+
+  constructor(private appointmentservice: AppointmentService) { }
 
   ngOnInit(): void {
-    let user_Id =localStorage.getItem("userId");
-    console.log(user_Id);
-     this.appointmentservice.getAppointment(user_Id).subscribe((data)=>{
-       this.Appointment = JSON.parse(JSON.stringify(data));
-       console.log(this.Appointment);
-   })
-}
+    this.currentUser = this.appointmentservice.getCurrentUserDetails()
+    this.appointmentservice.getAppointment().subscribe((data) => {
+      if (data) {
+        this.Appointments = data
+        console.log(this.Appointments)
+      }
+    })
+  }
 }

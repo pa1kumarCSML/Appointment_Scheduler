@@ -4,13 +4,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppointmentService {
-  Appointment = [{
-    Description: String,
-    Duration: Number,
-    NoOfParticipants: Number,
-    DateTime: Date,
-    userId: String
-  }]
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +13,13 @@ export class AppointmentService {
       )
   }
 
-  getAppointment(userId: any) {
-    console.log(userId);
-    return this.http.get("http://localhost:5000/api/appointments/" + userId)
+  getAppointment() {
+    return this.http.get("http://localhost:5000/api/appointments")
   }
+
+  getCurrentUserDetails() {
+    const user: any = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  }
+
 }

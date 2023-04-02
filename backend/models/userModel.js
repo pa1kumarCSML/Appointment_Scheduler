@@ -17,7 +17,8 @@ const userSchema = mongoose.Schema({
     },
     RollNo: {
         type: String,
-        unique: true
+        unique: true,
+        default: null
     },
     Role: {
         type: Number, //1:Students, 2: Faculty, 3: Director, 4:Others

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router'
 @Component({
@@ -18,14 +17,20 @@ export class RegisterComponent implements OnInit {
     Status: 1//1-active,0-inactive
   }
 
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private _router: Router) { }
 
   ngOnInit(): void {
   }
 
   Adduser() {
-    this.userService.NewUser(this.NewUser);
-    //this.router.navigate(["login"]);
+    this.userService.newUser(this.NewUser)
+      .subscribe((res) => {
+        const user: any = JSON.stringify(res)
+        if (user && JSON.parse(user).Id) {
+          this._router.navigate(['login']);
+        }
+      }
+      )
   }
 
 }

@@ -24,7 +24,7 @@ export class AppointmentService {
 
   deleteDetails(userId: any) {
     console.log("hii")
-    return this.http.delete("http://localhost:5000/api/appointments/:" + userId)
+    return this.http.delete("http://localhost:5000/api/appointments/" + userId)
   }
 
 }

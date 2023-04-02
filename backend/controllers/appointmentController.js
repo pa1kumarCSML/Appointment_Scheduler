@@ -69,8 +69,9 @@ const updateAppointment = asyncHandler(async (req, res) => {
 // @access Private
 
 const deleteAppointment = asyncHandler(async (req, res) => {
-    const request = await Appointment.findOne(req.params.id)
-    console.log("hiiii")
+    console.log(Appointment.findById(req.params.id))
+    const request = await Appointment.findById(req.params.id)
+    console.log("hih")
     if (!request) {
         res.status(400)
         throw new Error("Appointment not found")

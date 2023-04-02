@@ -25,6 +25,10 @@ export class MyAppointmentsComponent {
 
   ngOnInit(): void {
     this.currentUser = this.appointmentservice.getCurrentUserDetails()
+    this.getDetails();
+
+  }
+  getDetails(){
     this.appointmentservice.getAppointment().subscribe((data) => {
       if (data) {
         this.Appointments = data
@@ -34,11 +38,13 @@ export class MyAppointmentsComponent {
   }
 
   deleteBooking (Appointments:any)
-    { console.log("hy")
-    console.log(Appointments._id)
+    { //console.log("hy")
+    //console.log(Appointments._id)
     this.appointmentservice.deleteDetails(Appointments._id)
       .subscribe((data) => {
-        this.Appointments = this.Appointments.filter((p: any) => p !== this.Appointments);
+        // this.Appointments = this.Appointments.filter((p: any) => p !== this.Appointments);
+        //console.log(this.Appointments)
+        this.getDetails();
       })
   
   }

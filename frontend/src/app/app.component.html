@@ -8,9 +8,9 @@
           In</a></li>
       <li class="nav-item"><a routerLink="register" class="nav-link" routerLinkActive="active">Register</a>
       </li>
-      <li class="nav-item"><button type="button" class="btn btn-outline-secondary">Log out</button>
+      <li class="nav-item"><button type="button" (click)="logOut()" class="btn btn-outline-secondary">Log out</button>
       </li>
     </ul>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet (activate)="onActivate($event)"></router-outlet>

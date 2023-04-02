@@ -12,7 +12,7 @@ export class BookSlotComponent {
     Description: '',
     Duration: 15,
     NoOfParticipants: 1,
-    DateTime: new Date(),
+    DateTime: this.getCurrentDateTime(),
     userId: localStorage.getItem("userId")
   }
   constructor(public appointmentService: AppointmentService) { }

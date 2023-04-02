@@ -8,9 +8,7 @@ const Appointment = require("../models/appointmentModel")
 
 const getAppointments = asyncHandler(async (req, res) => {
     //check necessary validations and pre computings based on date
-    console.log(req.user);
-    const appointments = await Appointment.find({userId: req.user._id})
-    //console.log(appointments);
+    const appointments = await Appointment.find({ userId: req.user._id })
     res.status(200).json(appointments)
 })
 
@@ -19,27 +17,31 @@ const getAppointments = asyncHandler(async (req, res) => {
 // @access Private
 
 const setAppointment = asyncHandler(async (req, res) => {
-    const appDate = moment(req.body.DateTime);
-    const appDetails = req.body;
-   
+
     if (!req.body) {
         res.status(400)
         //using express error handler
         throw new Error("Please provide valid details")
     }
+    const appDate = moment(req.body.DateTime, 'YYYY-MM-DD HH:mm');
+    const appDetails = req.body;
     //check necessary validations
-    appDetails["userId"]=req.user._id;
+    appDetails["userId"] = req.user._id;
+    if (req.user.Role === 4) {
+        appDetails["Status"] = 2
+    }
     //console.log(appDetails);
     const appointment = await Appointment.create(appDetails);
-    
-    if(appointment){
+
+    if (appointment) {
         res.status(200).json({
             Id: appointment._id,
             UserId: appointment.userId,
             Description: appointment.Description,
             Noofparticipants: appointment.NoOfParticipants,
+            Duration: appointment.Duration,
             DateTime: appointment.DateTime,
-            EndTime: appDate.add(appointment.Duration,'minutes'),
+            EndTime: appDate.utcOffset(0).add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm:'),
             Status: appointment.Status,
         })
     }
@@ -51,7 +53,7 @@ const setAppointment = asyncHandler(async (req, res) => {
 
 const updateAppointment = asyncHandler(async (req, res) => {
     const appointment = await Appointment.findById(req.params.id)
-    
+
     if (!appointment) {
         res.status(400)
         throw new Error("Appointment not found")

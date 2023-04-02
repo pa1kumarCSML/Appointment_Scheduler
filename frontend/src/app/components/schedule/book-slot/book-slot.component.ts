@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { FormsModule } from '@angular/forms';
-import {Router} from '@angular/router'
 @Component({
   selector: 'app-book-slot',
   templateUrl: './book-slot.component.html',
   styleUrls: ['./book-slot.component.css']
 })
 export class BookSlotComponent {
-  NewAppointment={
-    Description:'',
-    Duration:15,
-    NoOfParticipants:1,
-    DateTime:'',
+  NewAppointment = {
+    Description: '',
+    Duration: 15,
+    NoOfParticipants: 1,
+    DateTime: '',
     userId: localStorage.getItem("userId")
   }
-  constructor(public appointmentService:AppointmentService,private router:Router) { }
+  constructor(public appointmentService: AppointmentService) { }
   ngOnInit(): void {
   }
   Addappointment() {

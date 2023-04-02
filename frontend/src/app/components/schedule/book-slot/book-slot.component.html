@@ -1,21 +1,23 @@
 <div class="container-fluid">
     <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
         <h3>Book Slot</h3>
-        <form method="post"  (ngSubmit)="Addappointment()"  #newAppointment="ngForm"  method="POST" enctype="multipart/form-data">
-            <label for="date">Date:</label>
-            <input type="datetime-local" id="DateTime" [(ngModel)]="NewAppointment.DateTime" name="DateTime" required><br><br>
-    
-            <label for="duration">Duration (in minutes):</label>
-		    <input type="number" [(ngModel)]="NewAppointment.Duration" id="Duration"  name="Duration" min="15" max="120" required><br><br>
+        <form autocomplete="off" (ngSubmit)="Addappointment()">
+            <label for="date">Date & Time</label>
+            <input type="datetime-local" id="date" [(ngModel)]="NewAppointment.DateTime" name="DateTime"
+                required><br><br>
 
-    
+            <label for="duration">Duration (in minutes):</label>
+            <input type="number" [(ngModel)]="NewAppointment.Duration" id="duration" name="Duration" min="5" max="120"
+                required><br><br>
+
             <label for="participants">Number of Participants:</label>
-            <input type="number" [(ngModel)]="NewAppointment.NoOfParticipants" id="NoOfParticipants"  name="NoOfParticipants" min="1" max="10" required><br><br>
+            <input type="number" [(ngModel)]="NewAppointment.NoOfParticipants" id="participants" name="NoOfParticipants"
+                min="1" max="10" required><br><br>
 
             <label for="description">Description:</label>
-		    <textarea id="Description" [(ngModel)]="NewAppointment.Description" name="Description"></textarea><br><br>
-    
-            <input type="submit" value="Book Appointment">
+            <textarea id="description" [(ngModel)]="NewAppointment.Description" name="Description"></textarea><br><br>
+
+            <button type="submit" class="btn btn-outline-secondary">Book Appointment</button>
         </form>
     </div>
     <div class="container">

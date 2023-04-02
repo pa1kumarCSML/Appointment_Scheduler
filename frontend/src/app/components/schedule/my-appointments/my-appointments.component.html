@@ -1,39 +1,35 @@
 <div class="container-fluid">
-    <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
-        <h3>My Appointments</h3>
+  <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
+    <h3>My Appointments</h3>
+  </div>
+  <div class="container">
+    <div class='card-body'>
+      <div class='table-responsive'>
+        <table class='table custom-table' *ngIf='Appointments && Appointments.length'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>DateTime</th>
+              <th>Duration</th>
+              <th>NoOfParticipants</th>
+              <th>Description</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let Appointment of Appointments'>
+              <td data-label="Description">{{currentUser&&currentUser.Name ? currentUser.Name : ""}}</td>
+              <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
+                Appointment.DateTime.toString().split("T")[1] }}</td>
+              <td data-label="Duration">{{ Appointment.Duration }}</td>
+              <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
+              <td data-label="Description">{{ Appointment.Description }}</td>
+              <td data-label="Status">{{ Appointment.Status }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h5 class="text-center text-danger" *ngIf='!Appointments.length'>You don't have any booking.</h5>
+      </div>
     </div>
-    <div class="container">
-        <div class='card-body'>            
-            <div class='table-responsive'>
-              <table class='table custom-table'
-                    *ngIf = 'Appointment && Appointment.length'>
-                <thead>
-                  <tr>
-                  <th>UserId</th>
-                    <th>Description</th>
-                    <th>DateTime</th>
-                    <th>Duration</th>
-                    <th>NoOfParticipants</th>
-                    <!-- <th>Status</th> -->
-                  </tr>
-                 
-                </thead>
-                <tbody>
-                  <tr *ngFor='let Appointment of Appointment'>
-                    <td data-label="UserId">{{ Appointment.userId }}</td>
-                    <td data-label="Description">{{ Appointment.Description }}</td>
-                    <td data-label="Booking Date Time">{{ Appointment.DateTime }}</td>
-                    <td data-label="Duration">{{ Appointment.Duration }}</td>
-                    <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
-                
-                  </tr>
-                  
-                </tbody>
-                
-              </table>
-    
-              <h5 class="text-center text-danger" *ngIf = '!Appointment.length'>You don't have any booking.</h5>
-            </div>
-          </div>
-    </div>
+  </div>
 </div>

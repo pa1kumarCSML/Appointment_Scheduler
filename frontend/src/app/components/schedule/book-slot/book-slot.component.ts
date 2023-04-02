@@ -16,13 +16,17 @@ export class BookSlotComponent {
     userId: localStorage.getItem("userId")
   }
   constructor(public appointmentService: AppointmentService) { }
-  ngOnInit(): void {
-  }
+
   Addappointment() {
-    //console.log("i");
-    this.appointmentService.NewAppointment(this.NewAppointment);
-    //console.log("Hii");
-    //this.router.navigate(["login"]);
+    this.appointmentService.NewAppointment(this.NewAppointment)
+      .subscribe(data => {
+        if (data) {
+          //success
+        } else {
+          //error message
+        }
+      }
+      )
   }
 
   getCurrentDateTime(): string {

@@ -9,8 +9,6 @@ export class AppointmentService {
 
   NewAppointment(Appointmentdetails: any) {
     return this.http.post("http://localhost:5000/api/appointments", Appointmentdetails)
-      .subscribe(data => { console.log(data) }
-      )
   }
 
   getAppointment() {
@@ -20,6 +18,10 @@ export class AppointmentService {
   getCurrentUserDetails() {
     const user: any = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
+  }
+
+  getAppointmentsForDate(date: any) {
+    return this.http.get("http://localhost:5000/api/appointments/" + date)
   }
 
 }

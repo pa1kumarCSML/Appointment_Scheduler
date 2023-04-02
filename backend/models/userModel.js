@@ -18,13 +18,14 @@ const userSchema = mongoose.Schema({
     RollNo: {
         type: String,
         unique: true,
+        default: null
     },
     Role: {
         type: Number, //1:Students, 2: Faculty, 3: Director, 4:Others
     },
     Status: {
-        type: String,
-        default: 'Active'
+        type: Number, //1-active,0-inactive
+        default: 1
     },
 },
     {

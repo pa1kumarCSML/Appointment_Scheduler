@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Appointment Scheduler';
+  constructor(private router: Router) { }
+
+  logOut() {
+    localStorage.removeItem('user')
+    this.router.navigate(['login']);
+  }
+
+  onActivate(componentRef: any) {
+    if (componentRef.onRouteChange) {
+
+    }
+  }
+
+
 }

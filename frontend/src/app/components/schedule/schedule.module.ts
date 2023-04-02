@@ -23,4 +23,4 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
     FormsModule
   ]
 })
-export class ScheduleModule {}
+export class ScheduleModule { }

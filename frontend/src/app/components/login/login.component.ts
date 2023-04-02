@@ -1,6 +1,6 @@
-import { Component , OnInit} from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,33 +8,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  User={Email:'',
-  Password:''};
-  error_msg:any;
+  User = {
+    Email: '',
+    Password: ''
+  };
+  error_msg: any;
 
-  constructor(private _login: LoginService, private _router:Router) { }
-    loginUser()
-  {
-    
+  constructor(private _login: UserService, private _router: Router) {
+  }
+
+  userLogin() {
     this._login.loginUser(this.User)
-    .subscribe(
-      res=>{
-        if(res){
-        localStorage.setItem('token',res.token)
-        localStorage.setItem("Email", this.User.Email.toString());
-        localStorage.setItem('is_user','true');
-        localStorage.setItem("userId", res._id.toString());
-        this._router.navigate(['/schedule']);
-        } else {
-          this.error_msg=true
-          setTimeout(()=>{this.error_msg=false},4000)
+      .subscribe((res) => {
+        const user: any = JSON.stringify(res)
+        if (user && JSON.parse(user).token) {
+          localStorage.setItem("user", user);
+          this._router.navigate(['schedule']);
         }
       }
-    )
-
+      )
   }
 
-  ngOnInit(): void {
+  logOut() {
+    localStorage.removeItem('user')
   }
+
 
 }

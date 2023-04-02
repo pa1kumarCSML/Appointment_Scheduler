@@ -2,9 +2,9 @@
     <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
         <h3>Book Slot</h3>
         <form autocomplete="off" (ngSubmit)="Addappointment()">
-            <label for="date">Date & Time</label>
-            <input type="datetime-local" id="date" [(ngModel)]="NewAppointment.DateTime" name="DateTime"
-                required><br><br>
+            <label for="datetime">Date & Time</label>
+            <input type="datetime-local" id="datetime" [(ngModel)]="NewAppointment.DateTime" name="DateTime"
+                min="{{getCurrentDateTime() | date:'yyyy-MM-ddTHH:mm'}}" required><br><br>
 
             <label for="duration">Duration (in minutes):</label>
             <input type="number" [(ngModel)]="NewAppointment.Duration" id="duration" name="Duration" min="5" max="120"

@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./book-slot.component.css']
 })
 export class BookSlotComponent {
+
   NewAppointment = {
     Description: '',
     Duration: 15,
     NoOfParticipants: 1,
-    DateTime: '',
+    DateTime: new Date(),
     userId: localStorage.getItem("userId")
   }
   constructor(public appointmentService: AppointmentService) { }
@@ -22,6 +23,20 @@ export class BookSlotComponent {
     this.appointmentService.NewAppointment(this.NewAppointment);
     //console.log("Hii");
     //this.router.navigate(["login"]);
+  }
+
+  getCurrentDateTime(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = this.padZero(now.getMonth() + 1);
+    const day = this.padZero(now.getDate());
+    const hours = this.padZero(now.getHours());
+    const minutes = this.padZero(now.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  private padZero(num: number): string {
+    return num.toString().padStart(2, '0');
   }
 
 }

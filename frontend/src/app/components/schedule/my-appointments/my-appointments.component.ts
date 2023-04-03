@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { BookSlotComponent } from '../book-slot/book-slot.component';
 import { Router } from '@angular/router';
@@ -14,7 +15,8 @@ export class MyAppointmentsComponent {
     Duration: Number,
     NoOfParticipants: Number,
     Description: String,
-    Status: Number
+    Status: Number,
+    _id: String
   }]
 
   currentUser: any = null;
@@ -23,11 +25,23 @@ export class MyAppointmentsComponent {
 
   ngOnInit(): void {
     this.currentUser = this.appointmentservice.getCurrentUserDetails()
+    this.getDetails();
+
+  }
+  getDetails() {
     this.appointmentservice.getAppointment().subscribe((data) => {
       if (data) {
         this.Appointments = data
         console.log(this.Appointments)
       }
     })
+  }
+
+  deleteBooking(id: any) {
+    this.appointmentservice.deleteDetails(id)
+      .subscribe((data) => {
+        this.getDetails();
+      })
+
   }
 }

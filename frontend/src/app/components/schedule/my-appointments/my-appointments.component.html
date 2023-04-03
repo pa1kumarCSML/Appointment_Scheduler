@@ -21,11 +21,17 @@
               <td data-label="Description">{{currentUser&&currentUser.Name ? currentUser.Name : ""}}</td>
               <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
                 Appointment.DateTime.toString().split("T")[1] }}</td>
-              <td data-label="Duration">{{ Appointment.Duration + " mins" }}</td>
+              <td data-label="Duration">{{ Appointment.Duration }}</td>
               <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
               <td data-label="Description">{{ Appointment.Description }}</td>
-              <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1) ? "Approved" :
+              <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1) ?
+                "Approved" :
                 (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
+              <td>
+                <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
+                <button class="btn btn-danger" style="cursor:pointer" (click)="deleteBooking(Appointment._id)">
+                  Cancel</button>
+              </td>
             </tr>
           </tbody>
         </table>

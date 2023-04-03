@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Appointment Scheduler';
   isLoggedIn: boolean = false;
+  user: any = null
   constructor(private router: Router) { }
 
   logOut() {
@@ -19,11 +20,14 @@ export class AppComponent {
   }
 
   onActivate(componentRef: any) {
-    const user: any = localStorage.getItem("user")
+    const user: any = localStorage.getItem("user") || null
     if (user && JSON.parse(user).token) {
       this.isLoggedIn = true
+      this.user = JSON.parse(user)
     } else {
       this.isLoggedIn = false
+      this.user = null
+
     }
   }
 }

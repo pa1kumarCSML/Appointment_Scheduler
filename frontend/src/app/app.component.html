@@ -4,6 +4,9 @@
       <a class="navbar-brand text-info" routerLink="/"><b>{{title}}</b></a>
     </div>
     <ul class="nav nav-pills">
+      <li *ngIf="this.isLoggedIn" class="nav-item px-3 mt-1">
+        <div class="text-md-start fs-5  badge bg-primary text-wrap">{{"USER: " + user.Name}}</div>
+      </li>
       <li *ngIf="!this.isLoggedIn" class="nav-item"><a routerLink="login" class="nav-link" routerLinkActive="active">Log
           In</a></li>
       <li *ngIf="!this.isLoggedIn" class="nav-item"><a routerLink="register" class="nav-link"

@@ -75,6 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
             Name: userExists.Name,
             Status: userExists.Status,
             IsAdmin: userExists.Role === 3,
+            Role: userExists.Role,
             token: generateToken(userExists._id)
         })
     }

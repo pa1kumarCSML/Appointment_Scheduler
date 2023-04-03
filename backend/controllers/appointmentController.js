@@ -80,9 +80,19 @@ const deleteAppointment = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id })
 })
 
+const getAppointmentsForDate = asyncHandler(async (req, res) => {
+    const regex = new RegExp(`^${req.params.date}`);
+    const appointments = await Appointment.find(
+        {
+            DateTime: regex
+        })
+    res.status(200).json(appointments)
+})
+
 module.exports = {
     getAppointments,
     setAppointment,
     updateAppointment,
     deleteAppointment,
+    getAppointmentsForDate
 }

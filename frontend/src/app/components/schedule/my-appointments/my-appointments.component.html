@@ -27,7 +27,8 @@
               <td data-label="Status">{{ Appointments.Status }}</td>
               <td>
                 <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
-                <button class="btn btn-danger" style="cursor:pointer" (click)= "deleteBooking(Appointments)"> Cancel</button>
+                <button class="btn btn-danger" style="cursor:pointer" (click)="deleteBooking(Appointments)">
+                  Cancel</button>
               </td>
             </tr>
           </tbody>

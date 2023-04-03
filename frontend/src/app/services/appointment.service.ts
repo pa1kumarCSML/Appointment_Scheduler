@@ -20,6 +20,9 @@ export class AppointmentService {
     return user ? JSON.parse(user) : null;
   }
 
+  deleteDetails(userId: any) {
+    return this.http.delete("http://localhost:5000/api/appointments/" + userId)
+  }
   getAppointmentsForDate(date: any) {
     return this.http.get("http://localhost:5000/api/appointments/" + date)
   }

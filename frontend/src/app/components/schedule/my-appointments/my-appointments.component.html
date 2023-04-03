@@ -17,15 +17,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor='let Appointment of Appointments'>
+            <tr *ngFor='let Appointments of Appointments'>
               <td data-label="Description">{{currentUser&&currentUser.Name ? currentUser.Name : ""}}</td>
-              <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
-                Appointment.DateTime.toString().split("T")[1] }}</td>
-              <td data-label="Duration">{{ Appointment.Duration + " mins" }}</td>
-              <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
-              <td data-label="Description">{{ Appointment.Description }}</td>
-              <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1) ? "Approved" :
-                (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
+              <td data-label="Booking Date Time">{{ Appointments.DateTime.toString().split("T")[0]+ " | " +
+                Appointments.DateTime.toString().split("T")[1] }}</td>
+              <td data-label="Duration">{{ Appointments.Duration }}</td>
+              <td data-label="NoOfParticipants">{{ Appointments.NoOfParticipants }}</td>
+              <td data-label="Description">{{ Appointments.Description }}</td>
+              <td data-label="Status">{{ Appointments.Status }}</td>
+              <td>
+                <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
+                <button class="btn btn-danger" style="cursor:pointer" (click)="deleteBooking(Appointments)">
+                  Cancel</button>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -31,5 +31,11 @@ export class ScheduleComponent {
         }
     }
 
+    slotBookedChangeToMyApps(e: any) {
+        if (e && e.slotBooked) {
+            this.onClick(e.changeTo)
+        }
+    }
+
 
 }

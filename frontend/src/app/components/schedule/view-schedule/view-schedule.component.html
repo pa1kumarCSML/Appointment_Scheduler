@@ -14,9 +14,9 @@
                     <tr>
                         <th>Date | Time</th>
                         <th>Duration</th>
-                        <th>NoOfParticipants</th>
-                        <th>Description</th>
-                        <th>Status</th>
+                        <th *ngIf="currentUser&&currentUser.Role != 4">NoOfParticipants</th>
+                        <th *ngIf="currentUser&&currentUser.Role != 4">Description</th>
+                        <th *ngIf="currentUser&&currentUser.Role != 4">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,11 +24,20 @@
                         <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
                             Appointment.DateTime.toString().split("T")[1] }}</td>
                         <td data-label="Duration">{{ Appointment.Duration + " mins" }}</td>
-                        <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
-                        <td data-label="Description">{{ Appointment.Description }}</td>
-                        <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1) ?
+                        <td *ngIf="currentUser&&currentUser.Role != 4" data-label="NoOfParticipants">{{
+                            Appointment.NoOfParticipants }}</td>
+                        <td *ngIf="currentUser&&currentUser.Role != 4" data-label="Description">{{
+                            Appointment.Description }}</td>
+                        <td *ngIf="currentUser&&currentUser.Role != 4" data-label="Status">{{
+                            Appointment.Status&&Appointment.Status ? (Appointment.Status==1) ?
                             "Approved" :
                             (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
+                        <td *ngIf="currentUser&&currentUser.IsAdmin">
+                            <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
+                            <button class="btn btn-danger" style="cursor:pointer"
+                                (click)="deleteBooking(Appointment._id)">
+                                Cancel</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

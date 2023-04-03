@@ -15,7 +15,7 @@
                         [ngClass]="this.activeTask===this.privs[2].toLowerCase() ? 'bg-light text-info' : ''"
                         (click)="onClick('myappointments')">My Appointments</a>
                 </li>
-                <li class="nav-item border-bottom"><a class="nav-link"
+                <li *ngIf="isAdmin" class="nav-item border-bottom"><a class="nav-link"
                         [ngClass]="this.activeTask===this.privs[3].toLowerCase() ? 'bg-light text-info' : ''"
                         (click)="onClick('requests')">Requested Appointments</a>
                 </li>
@@ -23,9 +23,11 @@
         </div>
         <div class="col-md-9">
             <app-view-schedule *ngIf="this.activeTask===this.privs[0].toLowerCase()"></app-view-schedule>
-            <app-book-slot *ngIf="this.activeTask===this.privs[1].toLowerCase()"></app-book-slot>
+            <app-book-slot *ngIf="this.activeTask===this.privs[1].toLowerCase()"
+                (slotBooked)="slotBookedChangeToMyApps($event)"></app-book-slot>
             <app-my-appointments *ngIf="this.activeTask===this.privs[2].toLowerCase()"></app-my-appointments>
-            <app-appointment-requests *ngIf="this.activeTask===this.privs[3].toLowerCase()"></app-appointment-requests>
+            <app-appointment-requests
+                *ngIf="isAdmin && this.activeTask===this.privs[3].toLowerCase()"></app-appointment-requests>
         </div>
     </div>
 </div>

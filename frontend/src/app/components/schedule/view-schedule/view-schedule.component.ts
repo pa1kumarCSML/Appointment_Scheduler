@@ -17,10 +17,12 @@ export class ViewScheduleComponent {
     Description: String,
     Status: Number
   }]
+  currentUser: any = null
 
   selectedDate: any = this.getCurrentDateTime()
 
   constructor(private appointmentService: AppointmentService) {
+    this.currentUser = this.appointmentService.getCurrentUserDetails()
   }
 
   ngOnInit(): void {
@@ -47,6 +49,13 @@ export class ViewScheduleComponent {
 
   private padZero(num: number): string {
     return num.toString().padStart(2, '0');
+  }
+
+  deleteBooking(id: any) {
+    this.appointmentService.deleteDetails(id)
+      .subscribe((data) => {
+        this.getAppointments();
+      })
   }
 
 }

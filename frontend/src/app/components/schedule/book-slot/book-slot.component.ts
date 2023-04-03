@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-book-slot',
   templateUrl: './book-slot.component.html',
   styleUrls: ['./book-slot.component.css']
 })
+
+
 export class BookSlotComponent {
+
+  @Output() slotBooked = new EventEmitter<object>();
 
   NewAppointment = {
     Description: '',
@@ -22,6 +25,7 @@ export class BookSlotComponent {
       .subscribe(data => {
         if (data) {
           //success
+          this.slotBooked.emit({ slotBooked: true, changeTo: "myappointments" });
         } else {
           //error message
         }

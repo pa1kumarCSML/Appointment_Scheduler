@@ -28,7 +28,7 @@ export class MyAppointmentsComponent {
     this.getDetails();
 
   }
-  getDetails(){
+  getDetails() {
     this.appointmentservice.getAppointment().subscribe((data) => {
       if (data) {
         this.Appointments = data
@@ -37,15 +37,11 @@ export class MyAppointmentsComponent {
     })
   }
 
-  deleteBooking (Appointments:any)
-    { //console.log("hy")
-    //console.log(Appointments._id)
-    this.appointmentservice.deleteDetails(Appointments._id)
+  deleteBooking(id: any) {
+    this.appointmentservice.deleteDetails(id)
       .subscribe((data) => {
-        // this.Appointments = this.Appointments.filter((p: any) => p !== this.Appointments);
-        //console.log(this.Appointments)
         this.getDetails();
       })
-  
+
   }
 }

@@ -23,8 +23,21 @@ export class AppointmentService {
   deleteDetails(userId: any) {
     return this.http.delete("http://localhost:5000/api/appointments/" + userId)
   }
+
   getAppointmentsForDate(date: any) {
     return this.http.get("http://localhost:5000/api/appointments/" + date)
   }
 
+  //Request Appointment related services
+
+  getReqAppointments() {
+    return this.http.get("http://localhost:5000/api/requests")
+  }
+  updateReqAppointment(update: any) {
+    return this.http.put("http://localhost:5000/api/requests", update)
+  }
+  deleteReqAppointment(id: any) {
+    return this.http.delete("http://localhost:5000/api/requests/" + id)
+
+  }
 }

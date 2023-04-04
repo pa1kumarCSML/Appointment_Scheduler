@@ -2,6 +2,42 @@
     <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
         <h3>Requested Appointments</h3>
     </div>
-    <div class="container">
+
+    <div class="container mb-2 border-bottom border-info">
+        <div class='card-body'>
+            <div class='table-responsive'>
+                <table class='table custom-table' *ngIf='Appointments && Appointments.length'>
+                    <thead>
+                        <tr>
+                            <th>Date | Time</th>
+                            <th>Duration</th>
+                            <th>NoOfParticipants</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let Appointment of Appointments'>
+                            <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
+                                Appointment.DateTime.toString().split("T")[1] }}</td>
+                            <td data-label="Duration">{{ Appointment.Duration }}</td>
+                            <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
+                            <td data-label="Description">{{ Appointment.Description }}</td>
+                            <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1)
+                                ?
+                                "Approved" :
+                                (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
+                            <td>
+                                <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
+                                <button class="btn btn-danger" style="cursor:pointer"
+                                    (click)="deleteBooking(Appointment._id)">
+                                    Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5 class="text-center text-primary" *ngIf='!Appointments.length'>You don't have any booking.</h5>
+            </div>
+        </div>
     </div>
 </div>

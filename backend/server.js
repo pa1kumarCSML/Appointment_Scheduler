@@ -19,6 +19,7 @@ app.use(cors())
 app.use(Express.json())
 app.use(Express.urlencoded({ extended: false }))
 
+app.use(Express.static('./dist/frontend'))
 
 //API Routes
 app.use('/api/users', require('./routes/userRoutes'));
@@ -28,6 +29,10 @@ app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
 //overwrite the default express errorhandler
 app.use(errorHandler)
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/frontend/index.html'));
+})
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

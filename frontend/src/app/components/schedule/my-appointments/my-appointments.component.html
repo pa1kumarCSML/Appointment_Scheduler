@@ -29,8 +29,9 @@
                 "Approved" :
                 (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
               <td>
-                <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
-                <button class="btn btn-danger" style="cursor:pointer" (click)="deleteBooking(Appointment._id)">
+                <button class="btn btn-warning" (click)="editBooking(Appointment._id)" style="margin-right:25px;">
+                  Edit</button>
+                <button class="btn btn-danger" (click)="deleteBooking(Appointment._id)">
                   Cancel</button>
               </td>
             </tr>

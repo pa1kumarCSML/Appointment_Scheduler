@@ -43,4 +43,11 @@ export class AppointmentRequestsComponent {
       })
   }
 
+  approveOrDeclineBooking(id: any, status: any) {
+    this.appointmentService.updateReqAppointment(id, status)
+      .subscribe((data) => {
+        this.getReqAppointments();
+      })
+  }
+
 }

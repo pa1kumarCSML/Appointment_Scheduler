@@ -36,6 +36,7 @@ export class ViewScheduleComponent {
     this.appointmentService.getAppointmentsForDate(this.selectedDate).subscribe(
       (appointments) => {
         this.Appointments = appointments;
+        this.Appointments = this.Appointments.filter((appointment: any) => appointment.Status != 3)
         this.Appointments.forEach((appointment: any) => {
           let appDate = moment(appointment.DateTime, 'YYYY-MM-DD HH:mm');
           appointment["EndTime"] = appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm')

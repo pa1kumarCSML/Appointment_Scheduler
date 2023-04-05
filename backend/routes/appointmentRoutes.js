@@ -9,6 +9,7 @@ const {
     updateAppointment,
     deleteAppointment,
     getAppointmentsForDate,
+    getAppointment,
 } = require('../controllers/appointmentController')
 
 const { protect } = require('../middleware/authMiddleware')
@@ -16,6 +17,7 @@ const { protect } = require('../middleware/authMiddleware')
 
 
 router.route('/').get(protect, getAppointments).post(protect, setAppointment)
+router.route('/get/:id').get(protect, getAppointment)
 router.route('/:date').get(protect, getAppointmentsForDate)
 router.route('/:id').delete(protect, deleteAppointment).put(protect, updateAppointment)
 

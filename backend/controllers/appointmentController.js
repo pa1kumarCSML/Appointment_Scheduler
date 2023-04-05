@@ -41,7 +41,7 @@ const setAppointment = asyncHandler(async (req, res) => {
             Noofparticipants: appointment.NoOfParticipants,
             Duration: appointment.Duration,
             DateTime: appointment.DateTime,
-            EndTime: appDate.utcOffset(0).add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm:'),
+            EndTime: appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm'),
             Status: appointment.Status,
         })
     }

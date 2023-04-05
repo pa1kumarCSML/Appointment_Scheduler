@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-view-schedule',
@@ -15,7 +16,8 @@ export class ViewScheduleComponent {
     Duration: Number,
     NoOfParticipants: Number,
     Description: String,
-    Status: Number
+    Status: Number,
+    EndTime: Date
   }]
   currentUser: any = null
 
@@ -34,6 +36,10 @@ export class ViewScheduleComponent {
     this.appointmentService.getAppointmentsForDate(this.selectedDate).subscribe(
       (appointments) => {
         this.Appointments = appointments;
+        this.Appointments.forEach((appointment: any) => {
+          let appDate = moment(appointment.DateTime, 'YYYY-MM-DD HH:mm');
+          appointment["EndTime"] = appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm')
+        });
       }
     );
   }

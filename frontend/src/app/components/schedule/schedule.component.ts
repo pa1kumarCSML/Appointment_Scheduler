@@ -12,6 +12,7 @@ export class ScheduleComponent {
     privs = ["view", "book", "myappointments", "requests"]
     activeTask = ""
     isAdmin: boolean = false;
+    editSlot: any = { edit: false, id: null };
 
     constructor(private appointmentservice: AppointmentService) {
         this.activeTask = this.privs[0].toLowerCase()
@@ -29,11 +30,20 @@ export class ScheduleComponent {
         if (!!this.privs.filter(priv => priv.toLowerCase() === task.toLowerCase())) {
             this.activeTask = task.toLowerCase();
         }
+        this.editSlot.edit = false
     }
 
     slotBookedChangeToMyApps(e: any) {
         if (e && e.slotBooked) {
             this.onClick(e.changeTo)
+        }
+    }
+
+    updateSlot(e: any) {
+        if (e && e.id) {
+            this.editSlot.edit = e.edit || false
+            this.editSlot.id = e.id || null
+            this.activeTask = e.changeTo.toLowerCase()
         }
     }
 

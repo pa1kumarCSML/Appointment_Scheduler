@@ -72,7 +72,7 @@ const updateRequest = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("Requests not found")
     }
-    const updateRequest = await Request.findByIdAndUpdate(req.params.id, req.body, {
+    const updateRequest = await Appointments.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
     res.status(200).json(updateRequest)

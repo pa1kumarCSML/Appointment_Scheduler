@@ -20,6 +20,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let Appointment of Appointments'>
+                            <td data-label="Date">{{Appointment.DateTime.toString().split("T")[0]}}</td>
                             <td data-label="Start Time">{{Appointment.DateTime.toString().split("T")[1]}}</td>
                             <td data-label="End Time">{{Appointment.EndTime.toString().split(" ")[1]}}</td>
                             <td data-label="Duration">{{ Appointment.Duration + " mins" }}</td>
@@ -31,9 +32,18 @@
                                 (Appointment.Status==2) ? "Pending" : "Declined" : "UnKnown"}}</td>
                             <td>
                                 <!-- <button class="btn btn-warning" style="cursor:pointer"  (click)= "editBooking(bookingdtls)" style="margin-right:25px;"> Edit</button> -->
-                                <button class="btn btn-danger" style="cursor:pointer"
-                                    (click)="deleteBooking(Appointment._id)">
-                                    Cancel</button>
+                                <!-- <span class="glyphicon glyphicon-remove"
+                                    ></span> -->
+                                <button
+                                    *ngIf="Appointment.Status&&Appointment.Status==2 || Appointment.Status&&Appointment.Status==3"
+                                    class="btn btn-success" style="cursor:pointer"
+                                    (click)="approveOrDeclineBooking(Appointment._id,1)">
+                                    Approve</button>
+                                <button
+                                    *ngIf="Appointment.Status&&Appointment.Status==2 || Appointment.Status&&Appointment.Status==1"
+                                    class="btn btn-danger" style="cursor:pointer"
+                                    (click)="approveOrDeclineBooking(Appointment._id,3)">
+                                    Decline</button>
                             </td>
                         </tr>
                     </tbody>

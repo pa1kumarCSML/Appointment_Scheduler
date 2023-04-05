@@ -15,6 +15,15 @@ export class AppointmentService {
     return this.http.get("http://localhost:5000/api/appointments")
   }
 
+  getAppointmentById(id: any) {
+    return this.http.get("http://localhost:5000/api/appointments/get/" + id)
+  }
+
+  updateAppointment(id: any, data: any) {
+    return this.http.put("http://localhost:5000/api/appointments/" + id, data)
+
+  }
+
   getCurrentUserDetails() {
     const user: any = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
@@ -33,8 +42,9 @@ export class AppointmentService {
   getReqAppointments() {
     return this.http.get("http://localhost:5000/api/requests")
   }
-  updateReqAppointment(update: any) {
-    return this.http.put("http://localhost:5000/api/requests", update)
+
+  updateReqAppointment(id: any, status: any) {
+    return this.http.put("http://localhost:5000/api/requests/" + id, { Status: status })
   }
   deleteReqAppointment(id: any) {
     return this.http.delete("http://localhost:5000/api/requests/" + id)

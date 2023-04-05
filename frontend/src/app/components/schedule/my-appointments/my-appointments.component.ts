@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import * as moment from 'moment';
 @Component({
@@ -7,6 +7,8 @@ import * as moment from 'moment';
   styleUrls: ['./my-appointments.component.css']
 })
 export class MyAppointmentsComponent {
+
+  @Output() editSlot = new EventEmitter<Object>();
 
   Appointments: any = [{
     DateTime: Date,
@@ -44,6 +46,10 @@ export class MyAppointmentsComponent {
       .subscribe((data) => {
         this.getDetails();
       })
-
   }
+
+  editBooking(id: any) {
+    this.editSlot.emit({ edit: true, id: id, changeTo: "book" })
+  }
+
 }

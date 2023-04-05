@@ -41,7 +41,7 @@ const setAppointment = asyncHandler(async (req, res) => {
             Noofparticipants: appointment.NoOfParticipants,
             Duration: appointment.Duration,
             DateTime: appointment.DateTime,
-            EndTime: appDate.utcOffset(0).add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm:'),
+            EndTime: appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm'),
             Status: appointment.Status,
         })
     }
@@ -53,10 +53,12 @@ const setAppointment = asyncHandler(async (req, res) => {
 
 const updateAppointment = asyncHandler(async (req, res) => {
     const appointment = await Appointment.findById(req.params.id)
-
     if (!appointment) {
         res.status(400)
         throw new Error("Appointment not found")
+    }
+    if (req && req.user && req.user.Role != 4) {
+        req.body.Status = 1
     }
     const updateAppointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -89,10 +91,28 @@ const getAppointmentsForDate = asyncHandler(async (req, res) => {
     res.status(200).json(appointments)
 })
 
+const getAppointment = asyncHandler(async (req, res) => {
+    const appointment = await Appointment.findById(req.params.id)
+    if (!appointment) {
+        res.status(400)
+        throw new Error("Appointment not found")
+    }
+    res.status(200).json({
+        Description: appointment.Description,
+        Duration: appointment.Duration,
+        NoOfParticipants: appointment.NoOfParticipants,
+        DateTime: appointment.DateTime,
+        userId: appointment.userId,
+        Status: 2
+    })
+})
+
 module.exports = {
     getAppointments,
     setAppointment,
     updateAppointment,
     deleteAppointment,
-    getAppointmentsForDate
+    getAppointmentsForDate,
+    getAppointment,
+
 }

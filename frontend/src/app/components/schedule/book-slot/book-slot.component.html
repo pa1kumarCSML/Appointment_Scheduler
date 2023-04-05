@@ -1,16 +1,16 @@
 <div class="container-fluid">
     <div class="p-3 mb-2 text-center bg-light text-info border-bottom border-info">
-        <h3>Book Slot</h3>
+        <h3>{{editSlot.edit ? "Update Slot" : "Book Slot"}}</h3>
     </div>
     <div class="container text-center text-info border-bottom border-info">
         <form autocomplete="off" (ngSubmit)="Addappointment()">
             <label for="datetime">Date & Time</label>
             <input type="datetime-local" id="datetime" [(ngModel)]="NewAppointment.DateTime" name="DateTime"
-                min="{{getCurrentDateTime() | date:'yyyy-MM-ddTHH:mm'}}" required><br><br>
+                min="{{getCurrentDateTime() | date:'yyyy-MM-ddTHH:mm'}}" required disabled="this.editSlot.edit"><br><br>
 
             <label for="duration">Duration (in minutes):</label>
             <input type="number" [(ngModel)]="NewAppointment.Duration" id="duration" name="Duration" min="5" max="120"
-                required><br><br>
+                required disabled="this.editSlot.edit"><br><br>
 
             <label for="participants">Number of Participants:</label>
             <input type="number" [(ngModel)]="NewAppointment.NoOfParticipants" id="participants" name="NoOfParticipants"
@@ -19,7 +19,8 @@
             <label for="description">Description:</label>
             <textarea id="description" [(ngModel)]="NewAppointment.Description" name="Description"></textarea><br><br>
 
-            <button type="submit" class="btn btn-outline-secondary mb-4">Book Appointment</button>
+            <button type="submit" class="btn btn-outline-secondary mb-4">{{editSlot.edit ? "Update Appointment" : "Book
+                Appointment"}}</button>
         </form>
     </div>
     <div class="container">

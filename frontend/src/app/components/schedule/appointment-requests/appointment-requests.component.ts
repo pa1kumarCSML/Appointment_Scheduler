@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as moment from 'moment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class AppointmentRequestsComponent {
     Duration: Number,
     NoOfParticipants: Number,
     Description: String,
-    Status: Number
+    Status: Number,
+    EndTime: Date
   }]
 
   constructor(private appointmentService: AppointmentService) { }
@@ -26,6 +28,10 @@ export class AppointmentRequestsComponent {
     this.appointmentService.getReqAppointments().subscribe((appointments) => {
       if (appointments) {
         this.Appointments = appointments
+        this.Appointments.forEach((appointment: any) => {
+          let appDate = moment(appointment.DateTime, 'YYYY-MM-DD HH:mm');
+          appointment["EndTime"] = appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm')
+        });
       }
     })
   }

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { BookSlotComponent } from '../book-slot/book-slot.component';
-import { Router } from '@angular/router';
+import * as moment from 'moment';
 @Component({
   selector: 'app-my-appointments',
   templateUrl: './my-appointments.component.html',
@@ -16,6 +14,7 @@ export class MyAppointmentsComponent {
     NoOfParticipants: Number,
     Description: String,
     Status: Number,
+    EndTime: Date,
     _id: String
   }]
 
@@ -32,7 +31,10 @@ export class MyAppointmentsComponent {
     this.appointmentservice.getAppointment().subscribe((data) => {
       if (data) {
         this.Appointments = data
-        console.log(this.Appointments)
+        this.Appointments.forEach((appointment: any) => {
+          let appDate = moment(appointment.DateTime, 'YYYY-MM-DD HH:mm');
+          appointment["EndTime"] = appDate.add(appointment.Duration, 'minutes').format('YYYY-MM-DD HH:mm')
+        });
       }
     })
   }

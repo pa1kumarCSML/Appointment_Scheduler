@@ -9,7 +9,9 @@
                 <table class='table custom-table' *ngIf='Appointments && Appointments.length'>
                     <thead>
                         <tr>
-                            <th>Date | Time</th>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
                             <th>Duration</th>
                             <th>NoOfParticipants</th>
                             <th>Description</th>
@@ -18,9 +20,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let Appointment of Appointments'>
-                            <td data-label="Booking Date Time">{{ Appointment.DateTime.toString().split("T")[0]+ " | " +
-                                Appointment.DateTime.toString().split("T")[1] }}</td>
-                            <td data-label="Duration">{{ Appointment.Duration }}</td>
+                            <td data-label="Start Time">{{Appointment.DateTime.toString().split("T")[1]}}</td>
+                            <td data-label="End Time">{{Appointment.EndTime.toString().split(" ")[1]}}</td>
+                            <td data-label="Duration">{{ Appointment.Duration + " mins" }}</td>
                             <td data-label="NoOfParticipants">{{ Appointment.NoOfParticipants }}</td>
                             <td data-label="Description">{{ Appointment.Description }}</td>
                             <td data-label="Status">{{ Appointment.Status&&Appointment.Status ? (Appointment.Status==1)

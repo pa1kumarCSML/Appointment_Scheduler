@@ -11,10 +11,25 @@ const getRequests = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("UnAuthorized User")
     }
-    //check necessary validations and pre computings
-    const users = await Users.find({ Role: 4 })
-    const requests = await Appointments.find({ userId: users })
-    res.status(200).json(requests)
+    // //check necessary validations and pre computings
+    // const users = await Users.find({ Role: 4 })
+    // const requests = await Appointments.
+    //     res.status(200).json(requests)
+
+    Users.find({ Role: 4 }, (err, users) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const userIds = users.map(user => user._id);
+            Appointments.find({ userId: { $in: userIds } }, (err, requests) => {
+                if (err) {
+                    res.status(200).json([])
+                } else {
+                    res.status(200).json(requests)
+                }
+            });
+        }
+    });
 })
 
 // @desc Set Goal

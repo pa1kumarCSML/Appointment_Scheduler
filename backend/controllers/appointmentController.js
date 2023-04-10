@@ -17,12 +17,12 @@ const getAppointments = asyncHandler(async (req, res) => {
 // @access Private
 
 const setAppointment = asyncHandler(async (req, res) => {
-
     if (!req.body) {
         res.status(400)
         //using express error handler
         throw new Error("Please provide valid details")
     }
+    checkValidSlotOrNot(req.body.DateTime, req.body.Duration)
     const appDate = moment(req.body.DateTime, 'YYYY-MM-DD HH:mm');
     const appDetails = req.body;
     //check necessary validations
@@ -105,6 +105,30 @@ const getAppointment = asyncHandler(async (req, res) => {
         userId: appointment.userId,
         Status: 2
     })
+})
+
+const checkValidSlotOrNot = asyncHandler(async (datetime, duration) => {
+    date = datetime.split("T")[0]
+    const regex = new RegExp(`^${date}`);
+    const appointments = await Appointment.find(
+        {
+            DateTime: regex
+        })//all the appointments in that date
+    //now check for time overlapping
+    slotoverlap = false
+    appointments.forEach(appointment => {
+        date1 = moment(datetime)
+        date2 = moment(appointment.DateTime)
+        // diff = date1.diff(date2, "minutes")
+        // console.log(diff)
+        slotoverlap = slotoverlap || date1.isBetween(date2,
+            date2.add(appointment.Duration, 'minutes'));
+        slotoverlap = slotoverlap || date2.isBetween(date1,
+            date1.add(duration, 'minutes'));
+        console.log(slotoverlap)
+    })
+
+    return slotoverlap;
 })
 
 module.exports = {

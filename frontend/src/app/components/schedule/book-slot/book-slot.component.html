@@ -6,11 +6,11 @@
         <form autocomplete="off" (ngSubmit)="Addappointment()">
             <label for="datetime">Date & Time</label>
             <input type="datetime-local" id="datetime" [(ngModel)]="NewAppointment.DateTime" name="DateTime"
-                min="{{getCurrentDateTime() | date:'yyyy-MM-ddTHH:mm'}}" required disabled="this.editSlot.edit"><br><br>
+                min="{{getCurrentDateTime() | date:'yyyy-MM-ddTHH:mm'}}" required><br><br>
 
             <label for="duration">Duration (in minutes):</label>
             <input type="number" [(ngModel)]="NewAppointment.Duration" id="duration" name="Duration" min="5" max="120"
-                required disabled="this.editSlot.edit"><br><br>
+                required><br><br>
 
             <label for="participants">Number of Participants:</label>
             <input type="number" [(ngModel)]="NewAppointment.NoOfParticipants" id="participants" name="NoOfParticipants"

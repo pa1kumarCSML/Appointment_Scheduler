@@ -29,6 +29,19 @@ const registerUser = asyncHandler(async (req, res) => {
         //using express error handler
         throw new Error("Please add required fields")
     }
+    if (userData.Role == 1) {
+        if (!userData.RollNo) {
+            res.status(400)
+            throw new Error("Please enter valid RollNo")
+        } else {
+            userData.RollNo = userData.RollNo.toLowerCase()
+            const rollNoExist = await User.findOne({ RollNo: userData.RollNo })
+            if (rollNoExist) {
+                res.status(400)
+                throw new Error(`User already exists with this rollno:${userData.RollNo}`)
+            }
+        }
+    }
 
     //check if user already exists
     const Email = userData.Email

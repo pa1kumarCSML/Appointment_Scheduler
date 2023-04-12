@@ -17,7 +17,7 @@
                         <th>Duration</th>
                         <th *ngIf="currentUser&&currentUser.Role != 4">NoOfParticipants</th>
                         <th *ngIf="currentUser&&currentUser.Role != 4">Description</th>
-                        <th>Status</th>
+                        <th *ngIf="currentUser&&currentUser.Role != 4">Status</th>
                     </tr>
                 </thead>
                 <tbody>

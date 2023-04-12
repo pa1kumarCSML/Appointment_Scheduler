@@ -30,7 +30,7 @@ export class ScheduleComponent {
         if (!!this.privs.filter(priv => priv.toLowerCase() === task.toLowerCase())) {
             this.activeTask = task.toLowerCase();
         }
-        this.editSlot.edit = false
+        this.editSlot = { edit: false, id: null }
     }
 
     slotBookedChangeToMyApps(e: any) {

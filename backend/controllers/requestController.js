@@ -11,14 +11,10 @@ const getRequests = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("UnAuthorized User")
     }
-    // //check necessary validations and pre computings
-    // const users = await Users.find({ Role: 4 })
-    // const requests = await Appointments.
-    //     res.status(200).json(requests)
 
     Users.find({ Role: 4 }, (err, users) => {
         if (err) {
-            console.error(err);
+            throw new Error(err)
         } else {
             const userIds = users.map(user => user._id);
             Appointments.find({ userId: { $in: userIds } }, (err, requests) => {
@@ -32,30 +28,6 @@ const getRequests = asyncHandler(async (req, res) => {
     });
 })
 
-// @desc Set Goal
-// @route POST /api/requests
-// @access Private
-
-// const setRequest = asyncHandler(async (req, res) => {
-//     const reqData = req.body;
-//     if (!req.body) {
-//         res.status(400)
-//         //using express error handler
-//         throw new Error("Please add a text field")
-//     }
-//     //check necessary validations
-//     reqData["userId"] = req.user._id;
-//     const request = await Request.create(reqData);
-
-//     res.status(200).json({
-//         Id: request._id,
-//         UserId: request.userId,
-//         Description: request.Description,
-//         Noofparticipants: request.NoOfParticipants,
-//         Slot: request.PreferredSlot,
-//         Status: request.Status,
-//     })
-// })
 
 // @desc Update Requests
 // @route PUT /api/requests/:id

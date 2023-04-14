@@ -17,7 +17,6 @@ const userSchema = mongoose.Schema({
     },
     RollNo: {
         type: String,
-        unique: true,
         default: null
     },
     Role: {

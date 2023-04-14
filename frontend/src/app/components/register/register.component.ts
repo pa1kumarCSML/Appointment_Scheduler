@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
     Name: '',
     Email: '',
     Password: '',
-    RollNo: '',
+    RollNo: null,
     Role: 1,
     Status: 1//1-active,0-inactive
   }
@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
   }
 
   Adduser() {
+    if (this.NewUser.Role != 1) {
+      this.NewUser.RollNo = null
+    }
     this.userService.newUser(this.NewUser)
       .subscribe((res) => {
         const user: any = JSON.stringify(res)

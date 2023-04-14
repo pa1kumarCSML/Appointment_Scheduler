@@ -29,6 +29,19 @@ const registerUser = asyncHandler(async (req, res) => {
         //using express error handler
         throw new Error("Please add required fields")
     }
+    if (userData.Role == 1) {
+        if (!userData.RollNo) {
+            res.status(400)
+            throw new Error("Please enter valid RollNo")
+        } else {
+            userData.RollNo = userData.RollNo.toLowerCase()
+            const rollNoExist = await User.findOne({ RollNo: userData.RollNo })
+            if (rollNoExist) {
+                res.status(400)
+                throw new Error(`User already exists with this rollno:${userData.RollNo}`)
+            }
+        }
+    }
 
     //check if user already exists
     const Email = userData.Email
@@ -63,12 +76,9 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access Public
 const loginUser = asyncHandler(async (req, res) => {
     const userDetails = req.body
-    //console.log(req.body)
-
     //Check for User Email
     const Email = userDetails.Email
     const userExists = await User.findOne({ Email })
-    //console.log(userExists)
     if (userExists && (await bcrypt.compare(userDetails.Password, userExists.Password))) {
         res.json({
             Id: userExists._id,
@@ -89,7 +99,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //Sign in a new token with the id that is passed in with the secret used
 const generateToken = (_id) => {
     return jwt.sign({ _id }, process.env.JWT_SECRET, {
-        expiresIn: '90d'
+        expiresIn: '1d'
     })
 }
 

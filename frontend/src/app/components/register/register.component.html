@@ -13,7 +13,7 @@
                         <select [(ngModel)]="NewUser.Role" class="form-select" name="Role">
                             <option selected value="1">Student</option>
                             <option value="2">Faculty</option>
-                            <option value="3">Others</option>
+                            <option value="4">Others</option>
                         </select>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                             placeholder="enter your email id" name="Email">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div *ngIf="NewUser.Role&&NewUser.Role==1" class="col-md-6">
                     <div class="form-control">
                         <div class="form-label text-primary">
                             Roll Number

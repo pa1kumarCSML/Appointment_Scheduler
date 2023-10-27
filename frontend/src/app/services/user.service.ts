@@ -9,7 +9,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
 
-
   newUser(Userdetails: any) {
     return this.http.post<any>("http://localhost:5000/api/users", Userdetails)
   }
